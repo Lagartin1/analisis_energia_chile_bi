@@ -1,0 +1,13 @@
+# enviroment 
+venv/
+
+# variables de entorno
+
+.env
+
+!.env.example
+
+# pycache
+__pycache__/
+
+

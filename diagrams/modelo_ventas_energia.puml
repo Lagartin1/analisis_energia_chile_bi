@@ -1,0 +1,46 @@
+@startuml
+
+hide methods
+hide stereotypes
+skinparam linetype ortho
+
+entity "dim_date" as dim_date {
+  * id_date : INT <<PK>>
+  --
+  fecha : DATE
+  anio : INT
+  trimestre : INT
+  mes : INT
+  nombre_mes : VARCHAR(20)
+}
+
+entity "dim_sistema" as dim_sistema {
+  * id_sistema : INT <<PK>>
+  --
+  nombre_sistema : VARCHAR(100)
+  tipo_sistema : VARCHAR(100)
+  pais : VARCHAR(100)
+}
+
+entity "dim_tipo_cliente" as dim_tipo_cliente {
+  * id_tipo_cliente : INT <<PK>>
+  --
+  tipo_cliente : VARCHAR(100)
+  segmento_cliente : VARCHAR(100)
+  descripcion : VARCHAR(255)
+}
+
+entity "fact_ventas_energia" as fact_ventas {
+  * id_venta : INT <<PK>>
+  --
+  * id_date : INT <<FK>>
+  * id_sistema : INT <<FK>>
+  * id_tipo_cliente : INT <<FK>>
+  energia_vendida_gwh : DECIMAL(20,6)
+}
+
+dim_date ||--o{ fact_ventas
+dim_sistema ||--o{ fact_ventas
+dim_tipo_cliente ||--o{ fact_ventas
+
+@enduml
